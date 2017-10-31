@@ -49,7 +49,8 @@ plot4 <- function(){
   ## Format dateTime Column
   t$dateTime <- as.POSIXct(dateTime)
   
-  par(mfrow=c(2,2))
+  png(filename = "plot4.png", width = 480, height = 480, units = "px")
+  par(mfrow = c(2, 2))
   
   with(t, {
     plot(Global_active_power~dateTime, type="l", 
@@ -61,15 +62,11 @@ plot4 <- function(){
     lines(dateTime, Sub_metering_1)
     lines(dateTime, Sub_metering_2, col = "red")
     lines(dateTime, Sub_metering_3, col = "blue")
-    #legend("topright", names(t)[7:9], col = c("black", "red", "blue"), lty = c(1, 1, 1))
+    legend("topright", col=c("black", "red", "blue"), lty=1, lwd=2, bty="n",
+           legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
     plot(Global_reactive_power~dateTime, type="l", 
          ylab="Global Rective Power (kilowatts)",xlab="")
   })
   
-  ## Saving to file
-  dev.copy(png, file="plot4.png", height=480, width=480)
-  dev.off()
-  
-  ## Ensuring further plots have don't use defined par values
   dev.off()
 }
